@@ -357,8 +357,9 @@ code, kbd, samp {
 }
 :not(pre) > code {
   background: var(--bg-2);
-  padding: 0.1em 0.35em;
-  border-radius: 2px;
+  padding: 0.05em 0.38em;
+  border: 1px solid var(--border);
+  border-radius: 3px;
   color: var(--text);
 }
 pre {
