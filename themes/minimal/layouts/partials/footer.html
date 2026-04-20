@@ -1,0 +1,27 @@
+<footer class="footer-line">
+  <div class="contact">
+    {{- if .IsHome -}}
+      {{- $first := true -}}
+      {{- with site.Params.social.github -}}
+        {{- if not $first }}<span class="sep">·</span>{{ end -}}
+        <a href="https://github.com/{{ . }}" rel="me noopener">github</a>
+        {{- $first = false -}}
+      {{- end }}
+      {{- with site.Params.social.linkedin -}}
+        {{- if not $first }}<span class="sep">·</span>{{ end -}}
+        <a href="https://www.linkedin.com/in/{{ . }}" rel="me noopener">linkedin</a>
+        {{- $first = false -}}
+      {{- end }}
+    {{- else -}}
+      {{- partial "back-link.html" . -}}
+    {{- end -}}
+  </div>
+  <div class="actions">
+    <button class="theme-toggle"
+            x-data="{ dark: document.documentElement.classList.contains('dark') }"
+            @click="dark = !dark;
+                    document.documentElement.classList.toggle('dark', dark);
+                    localStorage.setItem('theme', dark ? 'dark' : 'light')"
+            x-text="dark ? 'light mode' : 'dark mode'">dark mode</button>
+  </div>
+</footer>

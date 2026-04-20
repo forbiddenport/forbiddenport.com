@@ -1,0 +1,62 @@
+{{ define "main" }}
+<section class="panel">
+  <div class="panel-label">README.TXT</div>
+  <div class="panel-tag">{{ now.Format "2006-01-02" }}</div>
+  <div class="panel-body hero">
+    <h1 class="hero-name">{{ site.Params.author | default site.Title }}</h1>
+    <p class="hero-role">{{ site.Params.role }}</p>
+    {{- with .Content }}
+      <div class="hero-bio">{{ . }}</div>
+    {{- end }}
+  </div>
+</section>
+
+{{- $posts := where site.RegularPages "Section" "posts" }}
+{{- if $posts }}
+<section class="panel">
+  <div class="panel-label">Writing</div>
+  <div class="panel-tag"><a href="{{ "/posts/" | relURL }}">posts\</a></div>
+  <div class="panel-body">
+    <table class="file-list">
+      <tbody>
+      {{- range first 6 $posts }}
+        <tr>
+          <td class="fl-date">{{ .Date.Format "2006-01-02" }}</td>
+          <td class="fl-name"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+          <td class="fl-size">{{ if gt .ReadingTime 0 }}{{ .ReadingTime }} min{{ end }}</td>
+        </tr>
+      {{- end }}
+      </tbody>
+    </table>
+  </div>
+</section>
+{{- end }}
+
+{{- $projects := where site.RegularPages "Section" "projects" }}
+{{- if $projects }}
+<section class="panel">
+  <div class="panel-label">Projects</div>
+  <div class="panel-tag"><a href="{{ "/projects/" | relURL }}">projects\</a></div>
+  <div class="panel-body">
+    <div class="project-grid">
+      {{- range first 4 $projects }}
+        <a class="project-item" href="{{ .RelPermalink }}">
+          <div class="pi-head">
+            <span class="pi-marker">▪</span>
+            <span class="pi-name">{{ .Title }}</span>
+          </div>
+          {{- with .Params.summary | default .Summary }}
+            <p class="pi-summary">{{ . | plainify | truncate 180 }}</p>
+          {{- end }}
+          {{- with .Params.tags }}
+            <div class="pi-tags">
+              {{- range . }}<span>{{ . }}</span>{{ end }}
+            </div>
+          {{- end }}
+        </a>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}
+{{ end }}

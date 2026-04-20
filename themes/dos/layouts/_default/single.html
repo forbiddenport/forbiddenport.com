@@ -1,0 +1,50 @@
+{{ define "main" }}
+<article class="panel article">
+  <div class="panel-label">{{ if .File }}{{ .File.BaseFileName }}.md{{ else }}{{ .Title }}{{ end }}</div>
+  <div class="panel-tag">
+    {{- if not .Date.IsZero -}}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+    {{- end -}}
+  </div>
+  <div class="panel-body">
+    <header class="article-header">
+      <h1>{{ .Title }}</h1>
+      <div class="article-meta">
+        {{- with .Params.tags }}
+          <span class="meta-tags">
+            {{- range . -}}
+              <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>{{" "}}
+            {{- end -}}
+          </span>
+        {{- end }}
+        {{- if gt .ReadingTime 0 }}<span class="meta-dot">·</span><span>{{ .ReadingTime }} min read</span>{{ end }}
+        {{- with .WordCount }}<span class="meta-dot">·</span><span>{{ . }} words</span>{{ end }}
+      </div>
+    </header>
+
+    <div class="article-content">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+
+{{- $related := site.RegularPages.Related . | first 3 }}
+{{- if $related }}
+<section class="panel">
+  <div class="panel-label">Related</div>
+  <div class="panel-body">
+    <table class="file-list">
+      <tbody>
+      {{- range $related }}
+        <tr>
+          <td class="fl-date">{{ .Date.Format "2006-01-02" }}</td>
+          <td class="fl-name"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+          <td class="fl-size">{{ if gt .ReadingTime 0 }}{{ .ReadingTime }} min{{ end }}</td>
+        </tr>
+      {{- end }}
+      </tbody>
+    </table>
+  </div>
+</section>
+{{- end }}
+{{ end }}

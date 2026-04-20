@@ -1,0 +1,43 @@
+{{- $year := now.Format "2006" -}}
+<footer class="dos-chrome dos-footer">
+  <div class="container">
+    <div class="statusbar">
+      <span class="status-key"><kbd>F1</kbd> Help</span>
+      <span class="status-sep">│</span>
+      <span class="status-key"><a href="{{ "/posts/" | relURL }}"><kbd>F2</kbd> Posts</a></span>
+      <span class="status-sep">│</span>
+      <span class="status-key"><a href="{{ "/projects/" | relURL }}"><kbd>F3</kbd> Projects</a></span>
+      <span class="status-sep">│</span>
+      <span class="status-key"><a href="{{ "/about/" | relURL }}"><kbd>F4</kbd> About</a></span>
+      <span class="status-spacer"></span>
+      {{- with .OutputFormats.Get "rss" }}
+        <span class="status-key"><a href="{{ .RelPermalink }}"><kbd>F9</kbd> RSS</a></span>
+        <span class="status-sep">│</span>
+      {{- end }}
+      <span class="status-clock" x-data="clock()" x-init="tick(); setInterval(tick, 1000)" x-text="time">--:--:--</span>
+    </div>
+
+    <div class="colophon">
+      <span>&copy; {{ $year }} {{ site.Params.author | default site.Title }}{{ with site.Params.footerNote }} · {{ . }}{{ end }}</span>
+      <span class="links">
+        {{- with site.Params.social.github }}<a href="https://github.com/{{ . }}" rel="me noopener">github</a>{{- end }}
+        {{- with site.Params.social.twitter }} · <a href="https://twitter.com/{{ . }}" rel="me noopener">twitter</a>{{- end }}
+        {{- with site.Params.social.mastodon }} · <a href="{{ . }}" rel="me noopener">mastodon</a>{{- end }}
+        {{- with site.Params.social.email }} · <a href="mailto:{{ . }}">email</a>{{- end }}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function clock() {
+    return {
+      time: '--:--:--',
+      tick() {
+        const d = new Date();
+        const p = n => String(n).padStart(2, '0');
+        this.time = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+      }
+    };
+  }
+</script>

@@ -1,0 +1,11 @@
+name = "minimal"
+license = "MIT"
+description = "Minimal monochrome portfolio theme. Cool graphite palette, dark mode, vendored IBM Plex, Alpine.js."
+homepage = ""
+tags = ["minimal", "blog", "portfolio", "monochrome", "dark"]
+features = ["dark-mode", "rss", "taxonomies", "responsive"]
+min_version = "0.128.0"
+
+[author]
+  name = ""
+  homepage = ""

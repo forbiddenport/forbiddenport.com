@@ -1,0 +1,25 @@
+{{ define "main" }}
+<header class="article-header">
+  <h1>{{ .Title | lower }}</h1>
+  <div class="meta">
+    <span>{{ len .Pages }} entr{{ if eq (len .Pages) 1 }}y{{ else }}ies{{ end }}</span>
+  </div>
+</header>
+<div class="year-groups">
+  {{- range .Pages.GroupByDate "2006" }}
+    <div class="year-group">
+      <div class="year-label">{{ .Key }}</div>
+      <ul class="entry-list">
+        {{- range .Pages }}
+          <li>
+            <a href="{{ .RelPermalink }}">
+              <time class="date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01-02" }}</time>
+              <span class="title">{{ .Title }}</span>
+            </a>
+          </li>
+        {{- end }}
+      </ul>
+    </div>
+  {{- end }}
+</div>
+{{ end }}

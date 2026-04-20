@@ -1,0 +1,39 @@
+{{ define "main" }}
+<header class="article-header">
+  <h1>{{ .Title }}</h1>
+  {{- if .Section }}
+    <div class="meta">
+      {{- if not .Date.IsZero }}
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      {{- end }}
+      {{- if gt .ReadingTime 0 }}
+        <span class="sep">·</span>
+        <span>{{ .ReadingTime }} min read</span>
+      {{- end }}
+      {{- with .Params.tags }}
+        <span class="sep">·</span>
+        <span class="tags">
+          {{- range $i, $t := . -}}
+            {{- if $i }} {{ end -}}
+            <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>
+          {{- end -}}
+        </span>
+      {{- end }}
+    </div>
+  {{- end }}
+
+  {{- /* Spec block: renders when any disclosure-style field is set */ -}}
+  {{- if or .Params.cve .Params.vendor .Params.product .Params.severity }}
+    <dl class="spec">
+      {{- with .Params.cve }}<dt>cve</dt><dd>{{ . }}</dd>{{ end }}
+      {{- with .Params.vendor }}<dt>vendor</dt><dd>{{ . }}</dd>{{ end }}
+      {{- with .Params.product }}<dt>product</dt><dd>{{ . }}</dd>{{ end }}
+      {{- with .Params.severity }}<dt>severity</dt><dd>{{ . }}</dd>{{ end }}
+    </dl>
+  {{- end }}
+</header>
+
+<div class="article-content">
+  {{ .Content }}
+</div>
+{{ end }}

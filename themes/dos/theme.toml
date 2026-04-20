@@ -1,0 +1,11 @@
+name = "dos"
+license = "MIT"
+description = "DOS-IDE portfolio theme. Muted midnight-navy + warm cream, panel chrome, menu + status bars."
+homepage = ""
+tags = ["dos", "retro", "terminal", "panels", "monospace", "dark"]
+features = ["dark-mode", "rss", "taxonomies", "responsive"]
+min_version = "0.128.0"
+
+[author]
+  name = ""
+  homepage = ""

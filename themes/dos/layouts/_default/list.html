@@ -1,0 +1,57 @@
+{{ define "main" }}
+{{- $pages := .RegularPagesRecursive }}
+<section class="panel">
+  <div class="panel-label">{{ .Title }}</div>
+  <div class="panel-tag">{{ with .Section }}{{ . }}\{{ end }}</div>
+  <div class="panel-body">
+    {{- with .Content }}
+      <div class="list-intro">{{ . }}</div>
+    {{- end }}
+
+    {{- if eq .Section "projects" }}
+      <div class="project-grid">
+        {{- range $pages }}
+          <a class="project-item" href="{{ .RelPermalink }}">
+            <div class="pi-head">
+              <span class="pi-marker">▪</span>
+              <span class="pi-name">{{ .Title }}</span>
+            </div>
+            {{- with .Params.summary | default .Summary }}
+              <p class="pi-summary">{{ . | plainify | truncate 220 }}</p>
+            {{- end }}
+            {{- with .Params.tags }}
+              <div class="pi-tags">
+                {{- range . }}<span>{{ . }}</span>{{ end }}
+              </div>
+            {{- end }}
+          </a>
+        {{- end }}
+      </div>
+    {{- else }}
+      <table class="file-list file-list-full">
+        <thead>
+          <tr>
+            <th class="fl-date">DATE</th>
+            <th class="fl-name">NAME</th>
+            <th class="fl-size">SIZE</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{- range $pages }}
+          <tr>
+            <td class="fl-date">{{ .Date.Format "2006-01-02" }}</td>
+            <td class="fl-name">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              {{- with .Params.summary | default .Summary }}
+                <div class="fl-summary">{{ . | plainify | truncate 180 }}</div>
+              {{- end }}
+            </td>
+            <td class="fl-size">{{ if gt .ReadingTime 0 }}{{ .ReadingTime }} min{{ end }}</td>
+          </tr>
+        {{- end }}
+        </tbody>
+      </table>
+    {{- end }}
+  </div>
+</section>
+{{ end }}

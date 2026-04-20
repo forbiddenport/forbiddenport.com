@@ -1,0 +1,15 @@
+# Development-only mounts. `hugo server` defaults to the development
+# environment, so both content dirs are layered below. `hugo`
+# (production build) ignores this file entirely.
+#
+# Note: env-specific [[mounts]] arrays replace the default's entries
+# for the same target, so we restate the content mount here and add
+# content-dev on top.
+
+[[mounts]]
+  source = "content"
+  target = "content"
+
+[[mounts]]
+  source = "content-dev"
+  target = "content"

@@ -1,0 +1,44 @@
+{{- $brand := site.Title -}}
+<header class="dos-chrome">
+  <div class="container">
+    <div class="titlebar">
+      <div class="titlebar-prompt">
+        <span class="prompt-drive">C:\</span><a href="{{ "/" | relURL }}" class="prompt-name">{{ $brand }}</a><span class="prompt-caret">&gt;</span>
+      </div>
+      <div class="titlebar-controls">
+        <button class="win-btn"
+                x-data="{ dark: document.documentElement.classList.contains('dark') }"
+                @click="dark = !dark;
+                        document.documentElement.classList.toggle('dark', dark);
+                        localStorage.setItem('theme', dark ? 'dark' : 'light')"
+                :aria-label="dark ? 'Switch to light theme' : 'Switch to dark theme'"
+                :title="dark ? 'light mode' : 'dark mode'">
+          <span x-text="dark ? '☀' : '◐'">◐</span>
+        </button>
+        <span class="win-btn win-btn-static" aria-hidden="true">×</span>
+      </div>
+    </div>
+
+    <nav class="menubar" x-data="{ open: false }">
+      <button class="menu-toggle" aria-label="Toggle menu"
+              @click="open = !open" :aria-expanded="open.toString()">☰ menu</button>
+      <div class="menu-items" :class="{ 'open': open }">
+        {{- $currentPage := . -}}
+        {{- range site.Menus.main }}
+          {{- $active := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) -}}
+          {{- $name := .Name -}}
+          {{- $first := substr $name 0 1 -}}
+          {{- $rest := substr $name 1 -}}
+          <a href="{{ .URL | relURL }}" class="menu-item{{ if $active }} active{{ end }}"><span class="mnemonic">{{ $first }}</span>{{ $rest }}</a>
+        {{- end }}
+      </div>
+      <div class="menubar-path" aria-hidden="true">
+        {{- if .IsHome -}}
+          ~\
+        {{- else -}}
+          ~\{{ with .Section }}{{ . }}\{{ end }}{{ if .IsPage }}{{ .File.BaseFileName }}{{ end }}
+        {{- end -}}
+      </div>
+    </nav>
+  </div>
+</header>

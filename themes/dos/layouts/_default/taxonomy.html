@@ -1,0 +1,20 @@
+{{ define "main" }}
+<section class="panel">
+  <div class="panel-label">tag: {{ .Title }}</div>
+  <div class="panel-tag">tags\{{ .Title }}\</div>
+  <div class="panel-body">
+    <p class="tagline">{{ len .Pages }} item{{ if ne (len .Pages) 1 }}s{{ end }} found.</p>
+    <table class="file-list file-list-full">
+      <tbody>
+      {{- range .Pages }}
+        <tr>
+          <td class="fl-date">{{ .Date.Format "2006-01-02" }}</td>
+          <td class="fl-name"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+          <td class="fl-size">{{ if gt .ReadingTime 0 }}{{ .ReadingTime }} min{{ end }}</td>
+        </tr>
+      {{- end }}
+      </tbody>
+    </table>
+  </div>
+</section>
+{{ end }}

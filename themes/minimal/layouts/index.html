@@ -1,0 +1,32 @@
+{{ define "main" }}
+<header class="identity h-card">
+  <h1 class="name p-name">{{ site.Params.author | default site.Title }}</h1>
+  {{- with site.Params.role }}
+    <p class="role p-note">{{ . }}</p>
+  {{- end }}
+  {{- with .Content }}
+    <div class="bio">{{ . }}</div>
+  {{- end }}
+  <a href="{{ site.BaseURL }}" class="u-url" hidden></a>
+</header>
+
+{{- $posts       := where site.RegularPages "Section" "posts" }}
+{{- $projects    := where site.RegularPages "Section" "projects" }}
+{{- $disclosures := where site.RegularPages "Section" "disclosures" }}
+
+<nav class="site-index" aria-label="Sections">
+  <span class="item">
+    <a href="{{ "/posts/" | relURL }}">notes</a>
+    {{- if $posts }}<span class="count">({{ len $posts }})</span>{{ end -}}
+  </span>
+  <span class="item">
+    <a href="{{ "/projects/" | relURL }}">projects</a>
+    {{- if $projects }}<span class="count">({{ len $projects }})</span>{{ end -}}
+  </span>
+  <span class="item">
+    <a href="{{ "/disclosures/" | relURL }}">disclosures</a>
+    {{- if $disclosures }}<span class="count">({{ len $disclosures }})</span>{{ end -}}
+  </span>
+  <span class="item"><a href="{{ "/about/" | relURL }}">about</a></span>
+</nav>
+{{ end }}

@@ -1,0 +1,32 @@
+# Explicit default mounts. Hugo's implicit defaults are replaced the
+# moment any [[mounts]] entry is declared anywhere, so we have to
+# restate them here. Environment-specific module.toml files (e.g.
+# config/development/module.toml) are APPENDED to this list.
+
+[[mounts]]
+  source = "content"
+  target = "content"
+
+[[mounts]]
+  source = "layouts"
+  target = "layouts"
+
+[[mounts]]
+  source = "static"
+  target = "static"
+
+[[mounts]]
+  source = "assets"
+  target = "assets"
+
+[[mounts]]
+  source = "archetypes"
+  target = "archetypes"
+
+[[mounts]]
+  source = "data"
+  target = "data"
+
+[[mounts]]
+  source = "i18n"
+  target = "i18n"
