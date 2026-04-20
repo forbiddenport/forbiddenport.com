@@ -16,5 +16,35 @@
       {{- partial "footer.html" . }}
     </article>
   </main>
+
+  {{- /* Image lightbox: native <dialog>. Populated + shown by the inline script below. */ -}}
+  <dialog class="lightbox" aria-label="Image preview">
+    <img alt="">
+  </dialog>
+
+  <script>
+    (function () {
+      const dlg = document.querySelector('.lightbox');
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      const lbImg = dlg.querySelector('img');
+
+      // Open on any click of an article-content image.
+      document.addEventListener('click', (e) => {
+        const img = e.target.closest('.article-content img');
+        if (!img) return;
+        e.preventDefault();
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt || '';
+        dlg.showModal();
+      });
+
+      // Close on any click inside the lightbox (image or backdrop).
+      dlg.addEventListener('click', () => dlg.close());
+
+      // Clear src on close to stop any in-flight loads and free memory.
+      dlg.addEventListener('close', () => { lbImg.src = ''; });
+      // Esc is handled by the browser automatically for <dialog>.
+    })();
+  </script>
 </body>
 </html>

@@ -439,6 +439,35 @@ th {
   border-radius: 2px;
   margin: 1.5em 0;
 }
+.article-content img {
+  cursor: zoom-in;
+}
+
+/* Image lightbox (native <dialog>) */
+.lightbox {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  margin: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: visible;
+  color: inherit;
+}
+.lightbox::backdrop {
+  background: rgba(10, 10, 10, 0.94);
+}
+.lightbox img {
+  display: block;
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: zoom-out;
+  margin: 0;
+  border-radius: 2px;
+}
 
 /* Tag index
    ----------------------------------------------------------------------- */
@@ -598,7 +627,8 @@ th {
     --selection: #ddd;
   }
   body { color: #000; background: #fff; }
-  .back, .footer-line .actions, .theme-toggle { display: none !important; }
+  .back, .footer-line .actions, .theme-toggle, .lightbox { display: none !important; }
+  .article-content img { cursor: auto; }
   .page { padding: 0.5in; max-width: none; }
   a { text-decoration: underline; color: #000; }
   a::after { content: " (" attr(href) ")"; color: #666; font-size: 0.85em; }
