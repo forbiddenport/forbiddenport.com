@@ -22,6 +22,15 @@
     </div>
   {{- end }}
 
+  {{- /* Repo link (projects / tools). Rendered any time .Params.repo is set. */ -}}
+  {{- with .Params.repo }}
+    <div class="article-repo">
+      <a href="{{ . }}" rel="noopener">
+        <span class="arrow" aria-hidden="true">&rarr;</span>{{ . | replaceRE "^https?://" "" }}
+      </a>
+    </div>
+  {{- end }}
+
   {{- /* Spec block: renders when any disclosure-style field is set */ -}}
   {{- if or .Params.cve .Params.vendor .Params.product .Params.severity }}
     <dl class="spec">

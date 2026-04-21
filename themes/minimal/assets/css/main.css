@@ -429,6 +429,30 @@ th {
   color: var(--text);
   border-bottom-color: var(--muted);
 }
+
+/* Repo link (projects) */
+.article-repo {
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.article-repo a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--bg);
+  transition: color var(--transition), border-color var(--transition);
+  display: inline-flex;
+  gap: 0.4ch;
+  align-items: baseline;
+}
+.article-repo a:hover {
+  color: var(--text);
+  border-bottom-color: var(--muted);
+}
+.article-repo .arrow {
+  color: var(--faint);
+}
+
 .article-content > :first-child { margin-top: 0; }
 .article-content > p,
 .identity .bio p {
