@@ -53,4 +53,4 @@ After the connection is established, traffic should flow from the server to the 
 
 Optionally, the `-tranport tls` set for server and `--tranport tls` for the agent can be supplied to wrap the traffic in TLS; in this case, it's also recommended to specifically validate the TLS fingerprint as a defense-in-depth measure.
 
-Repo available at [https://github.com/forbiddenport/SharpSocks](https://github.com/forbiddenport/SharpSocks) with even more information, including more build instructions, dist/artifacts output structure, and security considerations.
+The repo contains a more in-depth set of instructions, considerations, and command-line flags.
