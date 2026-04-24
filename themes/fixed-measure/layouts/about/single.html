@@ -1,0 +1,25 @@
+{{- /*
+  About — uses the list-header treatment (big title + vermilion dot
+  + optional descriptor in cols 9-12) so it sits visually next to
+  /posts/, /projects/, /disclosures/ instead of looking like a post.
+
+  The markdown body still renders through the same .article-content
+  grid the blog posts use, so typography, code blocks, images, etc.
+  all work as expected.
+
+  Front matter:
+    title: about
+    descriptor: optional short bio shown in the right-hand gutter.
+*/ -}}
+{{ define "main" }}
+<header class="list-header">
+  <h1 class="section-title">{{ .Title | lower }}</h1>
+  {{- with .Params.descriptor }}
+    <div class="section-descriptor">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+<div class="article-content about-content">
+  {{ .Content }}
+</div>
+{{ end }}

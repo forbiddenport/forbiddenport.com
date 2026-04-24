@@ -1,5 +1,6 @@
 ---
-title: "About"
+title: about
+descriptor:
 ---
 
 I'm an offensive security specialist focused on adversary emulation, attack surface analysis, and exploitation of complex enterprise environments.

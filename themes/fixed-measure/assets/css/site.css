@@ -234,7 +234,10 @@ body.is-home .meta-strip .brand { grid-column: 1 / -1; }
 .meta-strip .sec-posts { grid-column: 4 / span 2; }
 .meta-strip .sec-proj  { grid-column: 6 / span 2; }
 .meta-strip .sec-disc  { grid-column: 8 / span 2; }
-.meta-strip .sec-about { grid-column: 10 / span 3; text-align: right; }
+/* About is a peer section now (not a utility link), so it sits
+   inline with the others. Col 12 stays empty — deliberate whitespace
+   at the end of the strip. */
+.meta-strip .sec-about { grid-column: 10 / span 2; }
 
 /* Cell placement — footer */
 .footer-strip .f-github     { grid-column: 1 / span 3; }
