@@ -4,7 +4,7 @@ title = "forbiddenport"
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
 
-theme = "minimal"
+theme = "fixed-measure"
 
 [params]
   author = "forbiddenport"
