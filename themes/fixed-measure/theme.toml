@@ -1,0 +1,11 @@
+name = "fixed-measure"
+license = "MIT"
+description = "Swiss-brutalist grid portfolio theme. Monochrome, monospaced, 12-col grid, dark mode via data-theme."
+homepage = ""
+tags = ["minimal", "blog", "portfolio", "monochrome", "dark", "grid"]
+features = ["dark-mode", "rss", "taxonomies", "responsive"]
+min_version = "0.128.0"
+
+[author]
+  name = ""
+  homepage = ""

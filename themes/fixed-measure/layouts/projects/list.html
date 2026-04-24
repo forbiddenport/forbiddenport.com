@@ -1,0 +1,30 @@
+{{ define "main" }}
+<header class="list-header">
+  <h1 class="section-title">{{ .Section | lower }}.</h1>
+  {{- with .Content }}
+    <div class="section-descriptor">{{ . }}</div>
+  {{- end }}
+</header>
+
+{{- $pages := .RegularPagesRecursive }}
+{{- if not $pages }}
+  <p class="empty">Nothing here yet.</p>
+{{- else }}
+<section class="project-list">
+  {{- range $pages }}
+    {{- $tag := .Params.tag -}}
+    {{- if not $tag -}}{{- with .Params.tags }}{{ $tag = index . 0 }}{{ end -}}{{- end -}}
+    <a class="row" href="{{ .RelPermalink }}">
+      <span class="tag">{{ $tag }}</span>
+      <div class="body">
+        <span class="title">{{ .Title }}</span>
+        {{- with .Params.summary | default .Summary }}
+          <span class="summary">{{ . | plainify }}</span>
+        {{- end }}
+      </div>
+      <span class="lang">{{ .Params.language }}</span>
+    </a>
+  {{- end }}
+</section>
+{{- end }}
+{{ end }}

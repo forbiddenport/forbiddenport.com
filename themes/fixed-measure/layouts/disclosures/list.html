@@ -1,0 +1,33 @@
+{{ define "main" }}
+<header class="list-header">
+  <h1 class="section-title">{{ .Section | lower }}.</h1>
+  {{- with .Content }}
+    <div class="section-descriptor">{{ . }}</div>
+  {{- end }}
+</header>
+
+{{- $pages := .RegularPagesRecursive }}
+{{- if not $pages }}
+  <p class="empty">Nothing here yet.</p>
+{{- else }}
+<section class="disclosure-list">
+  <div class="row head" aria-hidden="true">
+    <span class="id">id</span>
+    <span class="vendor">vendor</span>
+    <span class="severity">severity</span>
+    <span class="date">date</span>
+  </div>
+  {{- range $pages }}
+    {{- $id := or .Params.id .Params.cve -}}
+    {{- $date := .Params.date -}}
+    {{- if not $date }}{{ if not .Date.IsZero }}{{ $date = .Date.Format "2006-01" }}{{ end }}{{ end -}}
+    <a class="row" href="{{ .RelPermalink }}">
+      <span class="id">{{ $id }}</span>
+      <span class="vendor">{{ .Params.vendor }}</span>
+      <span class="severity">{{ .Params.severity }}</span>
+      <span class="date">{{ $date }}</span>
+    </a>
+  {{- end }}
+</section>
+{{- end }}
+{{ end }}

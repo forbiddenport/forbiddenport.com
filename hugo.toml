@@ -4,7 +4,6 @@ title = "forbiddenport"
 enableRobotsTXT = true
 disableHugoGeneratorInject = true
 
-# Switch themes by changing this line. Available: "minimal"
 theme = "minimal"
 
 [params]

@@ -1,0 +1,18 @@
+{{ define "main" }}
+<header class="list-header">
+  <h1 class="section-title">{{ .Title | lower }}.</h1>
+</header>
+
+{{- if not .Data.Terms }}
+  <p class="empty">No tags yet.</p>
+{{- else }}
+<section class="tag-index">
+  {{- range .Data.Terms.ByCount }}
+    <a class="row" href="{{ .Page.RelPermalink }}">
+      <span class="name">{{ .Name }}</span>
+      <span class="count">{{ .Count }}</span>
+    </a>
+  {{- end }}
+</section>
+{{- end }}
+{{ end }}

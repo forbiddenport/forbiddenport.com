@@ -1,0 +1,34 @@
+{{ define "main" }}
+<section class="home-hero">
+  <h1>
+    <span class="l1">forbidden</span>
+    <span class="l2">port.</span>
+  </h1>
+</section>
+
+<section class="home-brief">
+  <span class="label">brief</span>
+  <div class="body">
+    {{ .Content }}
+  </div>
+</section>
+
+<nav class="home-nav" aria-label="Sections">
+  <a class="cell" href="{{ "/posts/" | relURL }}">
+    <span class="n">01</span>
+    <span class="name">posts</span>
+  </a>
+  <a class="cell" href="{{ "/projects/" | relURL }}">
+    <span class="n">02</span>
+    <span class="name">projects</span>
+  </a>
+  <a class="cell" href="{{ "/disclosures/" | relURL }}">
+    <span class="n">03</span>
+    <span class="name">disclosures</span>
+  </a>
+  <a class="cell" href="{{ "/about/" | relURL }}">
+    <span class="n">04</span>
+    <span class="name">about</span>
+  </a>
+</nav>
+{{ end }}

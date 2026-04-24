@@ -1,0 +1,8 @@
+<button class="theme-toggle"
+        aria-label="Toggle theme"
+        x-data="{ dark: document.documentElement.getAttribute('data-theme') === 'dark' }"
+        @click="dark = !dark;
+                if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+                else document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('fp-theme', dark ? 'dark' : 'light')"
+        x-text="dark ? 'light mode' : 'dark mode'">dark mode</button>

@@ -1,0 +1,19 @@
+{{- /*
+  Hierarchical back link. One level up:
+    article/project (.Kind == "page") → its parent section
+    everything else (section root, taxonomy, term, 404) → home
+*/ -}}
+{{- $backURL := "/" -}}
+{{- $backLabel := "home" -}}
+{{- if eq .Kind "page" -}}
+  {{- with .Parent -}}
+    {{- if not .IsHome -}}
+      {{- $backURL = .RelPermalink -}}
+      {{- $backLabel = .Title | lower -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<a class="back" href="{{ $backURL | relURL }}">
+  <span class="back-arrow" aria-hidden="true">&larr;</span>
+  <span>{{ $backLabel }}</span>
+</a>

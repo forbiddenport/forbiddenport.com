@@ -1,0 +1,21 @@
+{{ define "main" }}
+<header class="list-header">
+  <h1 class="section-title">{{ .Title | lower }}.</h1>
+  <div class="section-descriptor">tag · {{ len .Pages }} {{ if eq (len .Pages) 1 }}entry{{ else }}entries{{ end }}</div>
+</header>
+
+{{- $pages := .Pages }}
+{{- if not $pages }}
+  <p class="empty">Nothing here yet.</p>
+{{- else }}
+<section class="post-list">
+  {{- range $pages }}
+    <a class="row" href="{{ .RelPermalink }}">
+      <time class="date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      <span class="title">{{ .Title }}</span>
+      <span class="rt">{{ if gt .ReadingTime 0 }}{{ .ReadingTime }} min{{ end }}</span>
+    </a>
+  {{- end }}
+</section>
+{{- end }}
+{{ end }}

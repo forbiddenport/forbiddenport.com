@@ -1,0 +1,10 @@
+{{- $p := .RelPermalink -}}
+<header class="meta-strip grid">
+  <a class="brand" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+  <nav class="sections" aria-label="Sections">
+    <a class="sec-posts{{ if hasPrefix $p "/posts" }} active{{ end }}"       href="{{ "/posts/" | relURL }}">posts</a>
+    <a class="sec-proj{{ if hasPrefix $p "/projects" }} active{{ end }}"     href="{{ "/projects/" | relURL }}">projects</a>
+    <a class="sec-disc{{ if hasPrefix $p "/disclosures" }} active{{ end }}"  href="{{ "/disclosures/" | relURL }}">disclosures</a>
+    <a class="sec-about{{ if hasPrefix $p "/about" }} active{{ end }}"       href="{{ "/about/" | relURL }}">about</a>
+  </nav>
+</header>

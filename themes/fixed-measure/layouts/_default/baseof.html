@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode | default "en" }}">
+<head>
+  {{- partial "head.html" . }}
+  {{- block "head" . }}{{ end }}
+</head>
+<body{{ if .IsHome }} class="is-home"{{ end }}>
+  {{- partial "header.html" . }}
+
+  <main class="page grid">
+    {{- block "main" . }}{{ end }}
+  </main>
+
+  {{- partial "footer.html" . }}
+
+  <dialog class="lightbox" aria-label="Image preview">
+    <img alt="">
+  </dialog>
+  <script>
+    (function () {
+      const dlg = document.querySelector('.lightbox');
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      const lbImg = dlg.querySelector('img');
+      document.addEventListener('click', (e) => {
+        const img = e.target.closest('.article-content img');
+        if (!img) return;
+        e.preventDefault();
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt || '';
+        dlg.showModal();
+      });
+      dlg.addEventListener('click', () => dlg.close());
+      dlg.addEventListener('close', () => { lbImg.src = ''; });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{{- $rss := "" -}}
+{{- with site.Home.OutputFormats.Get "rss" }}{{ $rss = .RelPermalink }}{{ end -}}
+<footer class="footer-strip grid">
+  {{- with site.Params.social.github }}
+    <a class="f-github" href="https://github.com/{{ . }}" rel="me noopener">github</a>
+  {{- else }}
+    <span class="f-github"></span>
+  {{- end }}
+
+  {{- with site.Params.social.linkedin }}
+    <a class="f-linkedin" href="https://www.linkedin.com/in/{{ . }}" rel="me noopener">linkedin</a>
+  {{- else }}
+    <span class="f-linkedin"></span>
+  {{- end }}
+
+  {{- if $rss }}
+    <a class="f-rss" href="{{ $rss }}">rss</a>
+  {{- else }}
+    <span class="f-rss"></span>
+  {{- end }}
+
+  {{ partial "theme-toggle.html" . }}
+</footer>

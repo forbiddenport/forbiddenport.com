@@ -1,0 +1,11 @@
+{{- if eq .Level 2 -}}
+  {{- $n := (.Page.Store.Get "h2_counter") | default 0 -}}
+  {{- $n = add $n 1 -}}
+  {{- .Page.Store.Set "h2_counter" $n -}}
+  <h2 id="{{ .Anchor | safeURL }}">
+    <span class="gutter">{{ printf "%02d" $n }}</span>
+    <span class="h2-text">{{ .Text | safeHTML }}</span>
+  </h2>
+{{- else -}}
+  <h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}</h{{ .Level }}>
+{{- end -}}
