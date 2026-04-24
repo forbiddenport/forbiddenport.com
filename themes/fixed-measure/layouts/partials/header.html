@@ -1,6 +1,9 @@
 {{- $p := .RelPermalink -}}
+{{- /* Strip a trailing dot from site.Title so the vermilion ::after
+       dot renders cleanly without doubling up. */ -}}
+{{- $brand := site.Title | strings.TrimRight "." -}}
 <header class="meta-strip grid">
-  <a class="brand" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+  <a class="brand" href="{{ "/" | relURL }}">{{ $brand }}</a>
   <nav class="sections" aria-label="Sections">
     <a class="sec-posts{{ if hasPrefix $p "/posts" }} active{{ end }}"       href="{{ "/posts/" | relURL }}">posts</a>
     <a class="sec-proj{{ if hasPrefix $p "/projects" }} active{{ end }}"     href="{{ "/projects/" | relURL }}">projects</a>

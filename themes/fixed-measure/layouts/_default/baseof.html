@@ -2,7 +2,6 @@
 <html lang="{{ site.LanguageCode | default "en" }}">
 <head>
   {{- partial "head.html" . }}
-  {{- block "head" . }}{{ end }}
 </head>
 <body{{ if .IsHome }} class="is-home"{{ end }}>
   {{- partial "header.html" . }}

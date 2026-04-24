@@ -30,6 +30,12 @@
   --rule:   #141413;
   --subtle: #3f3d38;
 
+  /* Single color accent — vermilion. Used only on the trailing dots
+     of identity/title marks (wordmark, section titles, home hero).
+     One semantic job: terminate an identifier. Kept to that usage
+     to preserve the monochrome system. */
+  --accent: #c8342a;
+
   --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
   --s-5: 24px; --s-6: 32px; --s-7: 40px; --s-8: 56px; --s-9: 80px;
 
@@ -48,7 +54,50 @@
   --rule:   #4a4a47;
   --subtle: #c6c5bf;
 
+  /* Slightly lifted vermilion for dark bg — same hue, more luminance
+     so the dot doesn't muddy against #111114. */
+  --accent: #e85c50;
+
   color-scheme: dark;
+}
+
+/* ============================================================
+   Vermilion dot — terminates every identity mark.
+   We inject the dot via ::after so the accent color applies
+   without touching the text content. Any element that carries
+   the .dot class (or is one of the specific title classes)
+   gets a trailing red period.
+   ============================================================ */
+.dot::after,
+.section-title::after,
+.article-title::after,
+.meta-strip .brand::after,
+.home-hero .l2::after {
+  content: ".";
+  color: var(--accent);
+}
+
+/* Lightbox dialog — styled to match the theme so it doesn't flash
+   a white browser-default box on dark mode. Backdrop dims the page. */
+.lightbox {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0;
+  max-width: 92vw;
+  max-height: 92vh;
+}
+.lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  cursor: zoom-out;
+}
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.72);
 }
 
 /* Reset */
@@ -400,7 +449,10 @@ body.is-home .footer-strip { margin-top: 0; }
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
-.post-list .row:focus-visible { outline: none; }
+.post-list .row:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
 .post-list .row:hover .date,
 .post-list .row:hover .rt,
 .post-list .row:focus-visible .date,
@@ -444,7 +496,10 @@ body.is-home .footer-strip { margin-top: 0; }
 .project-list .row:focus-visible { background: rgba(20,20,19,0.04); }
 [data-theme="dark"] .project-list .row:hover,
 [data-theme="dark"] .project-list .row:focus-visible { background: rgba(236,236,232,0.04); }
-.project-list .row:focus-visible { outline: none; }
+.project-list .row:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
 .project-list .row:hover .title,
 .project-list .row:focus-visible .title {
   text-decoration: underline;
@@ -524,7 +579,7 @@ body.is-home .footer-strip { margin-top: 0; }
 [data-theme="dark"] .disclosure-list a.row:focus-visible { background: rgba(236,236,232,0.04); }
 .disclosure-list .row.head {
   border-top: 0;
-  padding: 0 16px 10px;
+  padding: 0 16px var(--s-3);
   margin: 0 -16px;
   background: transparent !important;
   font-size: 12px;
@@ -533,7 +588,10 @@ body.is-home .footer-strip { margin-top: 0; }
   color: var(--mute);
 }
 .disclosure-list a.row:last-child { border-bottom: 1px solid var(--rule); }
-.disclosure-list a.row:focus-visible { outline: none; }
+.disclosure-list a.row:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
 .disclosure-list a.row:hover .id,
 .disclosure-list a.row:focus-visible .id {
   text-decoration: underline;
@@ -590,7 +648,10 @@ body.is-home .footer-strip { margin-top: 0; }
   text-decoration: none;
 }
 .tag-index .row:last-child { border-bottom: 1px solid var(--rule); }
-.tag-index .row:focus-visible { outline: none; }
+.tag-index .row:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: -2px;
+}
 .tag-index .row .name  { grid-column: 1 / span 10; font-size: 14px; }
 .tag-index .row .count { grid-column: 11 / span 2; font-size: 11px; color: var(--mute); text-align: right; }
 .tag-index .row:hover .name,
@@ -688,9 +749,9 @@ hr.rule {
 .article-content > * { grid-column: 3 / span 9; }
 
 .article-content > h2 {
-  grid-column: 1 / span 10;
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(var(--cols), 1fr);
   column-gap: var(--gutter);
   font-size: 24px;
   font-weight: 500;
@@ -707,13 +768,24 @@ hr.rule {
   color: var(--mute);
   padding-top: 6px;
 }
-.article-content > h2 .h2-text { grid-column: 3 / span 8; }
+.article-content > h2 .h2-text { grid-column: 3 / span 9; }
 
 .article-content > h3 {
   font-size: 18px;
   font-weight: 500;
   letter-spacing: -0.01em;
   margin: var(--s-6) 0 var(--s-2) 0;
+}
+
+/* h4–h6 fallback — rarely used in practice, but catches unstyled
+   defaults if a post does nest that deep. */
+.article-content > h4,
+.article-content > h5,
+.article-content > h6 {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin: var(--s-5) 0 var(--s-2) 0;
 }
 
 .article-content > p { margin: 0 0 var(--s-4) 0; }
@@ -783,14 +855,22 @@ hr.rule {
   background: transparent !important;
 }
 
-/* Inline code */
-.article-content :not(pre) > code {
+/* Inline code — body contexts only (paragraphs, lists, tables,
+   blockquotes). Scoped so headings don't pick up the tinted chip,
+   which would misalign the baseline next to the gutter counter. */
+.article-content p code,
+.article-content li code,
+.article-content td code,
+.article-content blockquote code {
   font-family: inherit;
   font-size: 0.95em;
   padding: 0.1em 0.4em;
   background: rgba(10,10,10,0.06);
 }
-[data-theme="dark"] .article-content :not(pre) > code {
+[data-theme="dark"] .article-content p code,
+[data-theme="dark"] .article-content li code,
+[data-theme="dark"] .article-content td code,
+[data-theme="dark"] .article-content blockquote code {
   background: rgba(232,230,223,0.06);
 }
 
